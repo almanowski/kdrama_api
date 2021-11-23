@@ -1,6 +1,6 @@
 const http = require('http'), // Imports the HTTP module and allows to use its function createServer()
-      fs = require('fs'),
-      url = require('url');
+    fs = require('fs'),
+    url = require('url');
 
 // This function will be called every time an HTTP request is made against the server
 http.createServer((request, response) => {
