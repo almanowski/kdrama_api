@@ -55,3 +55,18 @@ let topKoreanDramas = [
       releaseYear: 2019
     },
 ];
+
+// GET requests
+app.get('/', (req, res) => {
+    res.send('Welcome to my korean drama app!');
+});
+
+// Displays array
+app.get('/kdrama', (req, res) => {
+    res.json(topKoreanDramas);
+});
+
+// Listen to request
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.');
+});
