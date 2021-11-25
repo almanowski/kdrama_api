@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express'),
+    morgan = require('morgan'); // Used for logging
 
 const app = express();
 
@@ -55,6 +56,9 @@ let topKoreanDramas = [
       releaseYear: 2019
     },
 ];
+
+// Logs time, method, url path, response code, numb of charac of res that was sent back
+app.use(morgan('common'));
 
 // // Serves all static files in public folder
 app.use(express.static('public'));
