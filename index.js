@@ -56,6 +56,9 @@ let topKoreanDramas = [
     },
 ];
 
+// // Serves all static files in public folder
+app.use(express.static('public'));
+
 // GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to my korean drama app!');
