@@ -73,6 +73,12 @@ app.get('/kdrama', (req, res) => {
     res.json(topKoreanDramas);
 });
 
+// Error response
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke! - No kdramas for you. :()');
+});
+
 // Listen to request
 app.listen(8080, () => {
   console.log('Your app is listening on port 8080.');
