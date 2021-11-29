@@ -8,55 +8,75 @@ const app = express();
 // Created JSON object to carry kdrama data
 let topKoreanDramas = [
     {
-      title: 'Guardian: The Lonely and Great God',
-      episode: 16,
-      releaseYear: 2016
+        title: 'Guardian: The Lonely and Great God',
+        episode: 16,
+        releaseYear: 2016,
+        descreption: 'Kim Shin, a decorated military general from the Goryeo...',
+        genre: ['fantasy', 'romance'],
+        director: {
+            name: 'Lee Eung-Bok',
+            bio: 'Lorem ipsum',
+            birthyear: 1969
+        },
+        writer: ['Kim Eun-Sook'],
+        imgURL: 'https://asianwiki.com/images/b/b2/Goblin-p04.jpg'
     },
     {
-      title: 'Oh my Venus',
-      episode: 16,
-      releaseYear: 2015
+        title: 'Oh my Venus',
+        episode: 16,
+        releaseYear: 2015,
+        descreption: 'Lorem ipsum dolor sit amet, ...',
+        genre: ['comedy', 'romance', 'drama'],
+        director: {
+            name: 'Kim Hyung-suk',
+            bio: 'Lorem ipsum',
+            birthyear: '-'
+        },
+        writer: ['Kim Eun-Ji'],
+        imgURL: 'https://'
     },
     {
-      title: 'W: Two worlds apart',
-      episode: 16,
-      releaseYear: 2016
+        title: 'W: Two worlds apart',
+        episode: 16,
+        releaseYear: 2016,
+        descreption: 'Lorem ipsum dolor sit amet, ...',
+        genre: ['romance', 'comedy', 'fantasy', 'action'],
+        director: {
+            name: 'Jung Dae-Yoon',
+            bio: 'Lorem ipsum',
+            birthyear: '-'
+        },
+        writer: ['Song Jae-Jung'],
+        imgURL: 'https://'
     },
     {
-      title: 'Suspicious Partner',
-      episode: 40,
-      releaseYear: 2017
+        title: 'Suspicious Partner',
+        episode: 40,
+        releaseYear: 2017,
+        descreption: 'Lorem ipsum dolor sit amet, ...',
+        genre: ['romance', 'comedy', 'legal', 'crime'],
+        director: {
+            name: 'Park Sun-Ho',
+            bio: 'Lorem ipsum',
+            birthyear: '-'
+        },
+        writer: ['Kwon Ki-Young'],
+        imgURL: 'https://'
     },
     {
-      title: 'Love in the Moonlight',
-      episode: 18,
-      releaseYear: 2016
-    },
-    {
-      title: 'Healer',
-      episode: 20,
-      releaseYear: 2015
-    },
-    {
-      title: 'Who Are You: School 2015',
-      episode: 16,
-      releaseYear: 2015
-    },
-    {
-      title: 'You are all surrounded',
-      episode: 20,
-      releaseYear: 2014
-    },
-    {
-      title: 'Lawless Lawyer',
-      episode: 16,
-      releaseYear: 2018
-    },
-    {
-      title: 'The Tale of Nokdu',
-      episode: 32,
-      releaseYear: 2019
-    },
+        title: 'Love in the Moonlight',
+        episode: 18,
+        releaseYear: 2016,
+        descreption: 'Lorem ipsum dolor sit amet, ...',
+        genre: ['romance', 'comedy', 'historical'],
+        director: {
+            name: 'Kim Sung-Yoon & Baek Sang-Hoon',
+            bio: 'Lorem ipsum',
+            birthyear: '-'
+        },
+        writer: ['Kim Min-jung', 'Im Ye-jin'],
+        imgURL: 'https://'
+    }
 ];
 
 // GENERAL
