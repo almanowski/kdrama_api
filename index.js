@@ -69,20 +69,64 @@ app.use(bodyParser.json());
 // Serves all static files in public folder
 app.use(express.static('public'));
 
-// GET requests
+// CONTENT
 app.get('/', (req, res) => {
     res.send('Welcome to my korean drama app!');
 });
 
-// Displays array
-app.get('/kdrama', (req, res) => {
+// Displays dramas
+app.get('/korean-dramas', (req, res) => {
     res.json(topKoreanDramas);
 });
+
+// Displays one drama
+app.get('/korean-dramas/:title', (req, res) => {
+    res.json(topKoreanDramas.find((drama) => {
+        return drama.title === req.params.title;
+    }));
+});
+
+// Displays drama from a certain genre
+app.get('/korean-dramas/genres/:genre', (req, res) => {
+    res.send('Sucesscul GET request - Returning dramas filtered by genre');
+});
+
+// Displays one director
+app.get('/korean-dramas/directors/:name', (req, res) => {
+    res.send('Sucesscul GET request - Returning dramas filtered by director');
+});
+
+
+//USER
+// Adds data for a new user
+app.post('/users', (req, res) => {
+    res.send('Sucesscul POST request -  New user was able to register');
+});
+
+// Update the username
+app.put('/users/profil/:username', (req, res) => {
+    res.send('Sucesscul PUT request - User changes username');
+});
+
+//Update the favlist
+app.put('/users/:username/favs', (req, res) => {
+    res.send('Sucesscul PUT request - User adds a drama to fav list');
+});
+
+//Delte drama from the favlist
+app.delete('/users/:username/favs', (req, res) => {
+    res.send('Sucesscul DELETE - User deletes a drama from fav list');
+});
+
+// Delete user
+app.delete('/users/profil/:username', (req, res) => {
+    res.send('Sucesscul DELETE request - User deregisters');
+})
 
 // Error response
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke! - No kdramas for you. :()');
+    res.status(500).send('Something broke! - No kdramas for you. :(');
 });
 
 // Listen to request
