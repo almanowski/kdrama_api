@@ -3,18 +3,151 @@
   <head>
     <meta charset="utf-8">
     <title>Movie API - Documentation</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <header>
 
     </header>
     <main>
-      <h1>Objective</h1>
-      <p>To build the server-side component of a "movies" web application. The web
-         application will provide users with access to information about different
-          movies, directors, and genres. Users will be able to sign up, update their
-         personal information, and create a list of their favorite movies.</p>
+      <h1>Documentation</h1>
+      <h2>Objective</h2>
+      <p>
+        To build the server-side component of a "Korean drama" web application. The web
+        application will provide users with access to information about different
+        dramas, directors, and genres. Users will be able to sign up, update their
+        personal information, and create a list of their favourite Korean dramas.
+      </p>
+
+      <h2>Dramas</h2>
+      <table>
+        <tr>
+          <th>REQUEST</th>
+          <th>URL</th>
+          <th>HTTP METHOD</th>
+          <th>REQUEST DATA FORMAT</th>
+          <th>RESPONSE DATA BODY FORMAT</th>
+        </tr>
+        <tr>
+          <td>Get a list of Korean dramas</td>
+          <td>/korean-dramas</td>
+          <td class="center">GET</td>
+          <td class="center">None</td>
+          <td>
+            A JASON object holding data about all korean dramas
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a single drama</td>
+          <td>/korean-dramas/[title]</td>
+          <td class="center">GET</td>
+          <td class="center">None</td>
+          <td>
+            A JASON object holding data about a single drama, containing a title,
+            epsiodes, release Year, description, genre, director, image URL
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "title": "Oh my Venus",
+                  "episode": 16,
+                  "releaseYear": 2015,
+                  "descreption": "Lorem ipsum dolor sit amet, ...",
+                  "genre": [
+                      "comedy",
+                      "romance",
+                      "drama"
+                      ],
+                  "director": {
+                      "name": "Kim Hyung-suk",
+                      "bio": "Lorem ipsum",
+                      "birthyear": "-"
+                      },
+                  "writer": [
+                      "Kim Eun-Ji"
+                      ],
+                  "imgURL": "https://"
+                }
+              </code>
+          </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a genre by name/title (e.g., "Thriller")</td>
+          <td>/korean-dramas/[genre]</td>
+          <td class="center">GET</td>
+          <td class="center">None</td>
+          <td>
+            A JASON object holding data about all korean dramas of a certain genre
+            <br>
+            Example:
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a director by name</td>
+          <td>/korean-dramas/[director]</td>
+          <td class="center">GET</td>
+          <td class="center">None</td>
+          <td>
+            A JASON object holding data about a single director,
+            containing a bio, birth year, death year
+            <br>
+            Example:
+          </td>
+        </tr>
+      </table>
+
+      <h2>Users</h2>
+      <table>
+        <tr>
+          <th>REQUEST</th>
+          <th>URL</th>
+          <th>HTTP METHOD</th>
+          <th>REQUEST DATA FORMAT</th>
+          <th>RESPONSE DATA BODY FORMAT</th>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td class="center">POST</td>
+          <td>A JSON object holding data about a new user to add, structured like:</td>
+          <td>
+            A JSON object holding data about a new user that was add, including an ID:
+            <br>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/users/[username]</td>
+          <td class="center">PUT</td>
+          <td class="center">None</td>
+          <td>A text message, indicating the username was updated</td>
+        </tr>
+        <tr>
+          <td>Allow users to add a drama to their list of fav</td>
+          <td>/users/[fav]</td>
+          <td class="center">PUT</td>
+          <td class="center">None</td>
+          <td>A text message, indicating that the drama has been added</td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a drama from their list of favourites</td>
+          <td>/users/[fav]</td>
+          <td class="center">DELETE</td>
+          <td class="center">None</td>
+          <td>A text message, indicating that the drama has been removed</td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister</td>
+          <td>/users</td>
+          <td class="center">DELETE</td>
+          <td class="center">None</td>
+          <td>A text message, indicating that the email has been removed</td>
+        </tr>
+      </table>
     </main>
-    <footer></footer>
   </body>
 </html>
