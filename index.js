@@ -1,5 +1,7 @@
 const express = require('express'),
-    morgan = require('morgan'); // Used for logging
+    morgan = require('morgan'), // Used for logging
+    bodyParser = require('body-parser'), // Reads the “body” of HTTP requests
+    uuid = require('uuid'); // Generate a unique ID
 
 const app = express();
 
@@ -57,10 +59,14 @@ let topKoreanDramas = [
     },
 ];
 
+// GENERAL
 // Logs time, method, url path, response code, numb of charac of res that was sent back
 app.use(morgan('common'));
 
-// // Serves all static files in public folder
+// Allows you to read the “body” of HTTP requests within your request handlers
+app.use(bodyParser.json());
+
+// Serves all static files in public folder
 app.use(express.static('public'));
 
 // GET requests
