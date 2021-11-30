@@ -9,71 +9,56 @@ const app = express();
 let topKoreanDramas = [
     {
         title: 'Guardian: The Lonely and Great God',
+        dramaId: 1,
         episode: 16,
         releaseYear: 2016,
         descreption: 'Kim Shin, a decorated military general from the Goryeo...',
         genre: ['fantasy', 'romance'],
-        director: {
-            name: 'Lee Eung-Bok',
-            bio: 'Lorem ipsum',
-            birthyear: 1969
-        },
+        director: ['Lee Eung-Bok'],
         writer: ['Kim Eun-Sook'],
         imgURL: 'https://asianwiki.com/images/b/b2/Goblin-p04.jpg'
     },
     {
         title: 'Oh my Venus',
+        dramaId: 2,
         episode: 16,
         releaseYear: 2015,
         descreption: 'Lorem ipsum dolor sit amet, ...',
         genre: ['comedy', 'romance', 'drama'],
-        director: {
-            name: 'Kim Hyung-suk',
-            bio: 'Lorem ipsum',
-            birthyear: '-'
-        },
+        director: ['Kim Hyung-suk'],
         writer: ['Kim Eun-Ji'],
         imgURL: 'https://'
     },
     {
         title: 'W: Two worlds apart',
+        dramaId: 3,
         episode: 16,
         releaseYear: 2016,
         descreption: 'Lorem ipsum dolor sit amet, ...',
         genre: ['romance', 'comedy', 'fantasy', 'action'],
-        director: {
-            name: 'Jung Dae-Yoon',
-            bio: 'Lorem ipsum',
-            birthyear: '-'
-        },
+        director: ['Jung Dae-Yoon'],
         writer: ['Song Jae-Jung'],
         imgURL: 'https://'
     },
     {
         title: 'Suspicious Partner',
+        dramaId: 4,
         episode: 40,
         releaseYear: 2017,
         descreption: 'Lorem ipsum dolor sit amet, ...',
         genre: ['romance', 'comedy', 'legal', 'crime'],
-        director: {
-            name: 'Park Sun-Ho',
-            bio: 'Lorem ipsum',
-            birthyear: '-'
-        },
+        director: ['Park Sun-Ho'],
         writer: ['Kwon Ki-Young'],
         imgURL: 'https://'
     },
     {
         title: 'Love in the Moonlight',
+        dramaId: 5,
         episode: 18,
         releaseYear: 2016,
         descreption: 'Lorem ipsum dolor sit amet, ...',
         genre: ['romance', 'comedy', 'historical'],
-        director: {
-            name: 'Kim Sung-Yoon & Baek Sang-Hoon',
-            bio: 'Lorem ipsum',
-            birthyear: '-'
-        },
+        director: ['Kim Sung-Yoon', 'Baek Sang-Hoon'],
         writer: ['Kim Min-jung', 'Im Ye-jin'],
         imgURL: 'https://'
     }
@@ -107,13 +92,13 @@ app.get('/korean-dramas/:title', (req, res) => {
 });
 
 // Displays drama from a certain genre
-app.get('/korean-dramas/genres/:genre', (req, res) => {
-    res.send('Sucesscul GET request - Returning dramas filtered by genre');
+app.get('/genres/:genre', (req, res) => {
+    res.send('Sucesscul GET request - Returning dramas by genre');
 });
 
 // Displays one director
-app.get('/korean-dramas/directors/:name', (req, res) => {
-    res.send('Sucesscul GET request - Returning dramas filtered by director');
+app.get('/directors/:name', (req, res) => {
+    res.send('Sucesscul GET request - Returning drama director');
 });
 
 
@@ -124,22 +109,22 @@ app.post('/users', (req, res) => {
 });
 
 // Update the username
-app.put('/users/profil/:username', (req, res) => {
+app.put('/users/:id', (req, res) => {
     res.send('Sucesscul PUT request - User changes username');
 });
 
 //Update the favlist
-app.put('/users/:username/favs', (req, res) => {
+app.put('/users/:id/favs/:dramaId', (req, res) => {
     res.send('Sucesscul PUT request - User adds a drama to fav list');
 });
 
 //Delte drama from the favlist
-app.delete('/users/:username/favs', (req, res) => {
+app.delete('/users/:id/favs/:dramaId', (req, res) => {
     res.send('Sucesscul DELETE - User deletes a drama from fav list');
 });
 
 // Delete user
-app.delete('/users/profil/:username', (req, res) => {
+app.delete('/users/:id', (req, res) => {
     res.send('Sucesscul DELETE request - User deregisters');
 })
 
