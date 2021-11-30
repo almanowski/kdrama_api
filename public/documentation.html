@@ -60,11 +60,9 @@
                       "romance",
                       "drama"
                       ],
-                  "director": {
-                      "name": "Kim Hyung-suk",
-                      "bio": "Lorem ipsum",
-                      "birthyear": "-"
-                      },
+                  "director": [
+                      "Kim Hyung-suk"
+                      ],
                   "writer": [
                       "Kim Eun-Ji"
                       ],
@@ -76,26 +74,17 @@
         </tr>
         <tr>
           <td>Get data about a genre by name/title (e.g., "Thriller")</td>
-          <td>/korean-dramas/[genre]</td>
+          <td>/genres/[genre]</td>
           <td class="center">GET</td>
           <td class="center">None</td>
-          <td>
-            A JASON object holding data about all korean dramas of a certain genre
-            <br>
-            Example:
-          </td>
+          <td>A text message, indicating a drama genre list</td>
         </tr>
         <tr>
           <td>Get data about a director by name</td>
-          <td>/korean-dramas/[director]</td>
+          <td>/directors/[name]</td>
           <td class="center">GET</td>
           <td class="center">None</td>
-          <td>
-            A JASON object holding data about a single director,
-            containing a bio, birth year, death year
-            <br>
-            Example:
-          </td>
+          <td>A text message, indicating a certain drama director</td>
         </tr>
       </table>
 
@@ -112,37 +101,33 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td class="center">POST</td>
-          <td>A JSON object holding data about a new user to add, structured like:</td>
-          <td>
-            A JSON object holding data about a new user that was add, including an ID:
-            <br>
-
-          </td>
+          <td class="center">None</td>
+          <td>A text message, indicating the user was registered</td>
         </tr>
         <tr>
           <td>Allow users to update their user info (username)</td>
-          <td>/users/[username]</td>
+          <td>/users/[id]</td>
           <td class="center">PUT</td>
           <td class="center">None</td>
           <td>A text message, indicating the username was updated</td>
         </tr>
         <tr>
           <td>Allow users to add a drama to their list of fav</td>
-          <td>/users/[fav]</td>
+          <td>/users/[id]/favs/[dramaId]</td>
           <td class="center">PUT</td>
           <td class="center">None</td>
           <td>A text message, indicating that the drama has been added</td>
         </tr>
         <tr>
           <td>Allow users to remove a drama from their list of favourites</td>
-          <td>/users/[fav]</td>
+          <td>/users/[id]/favs/[dramaId]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
           <td>A text message, indicating that the drama has been removed</td>
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
-          <td>/users</td>
+          <td>/users/[id]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
           <td>A text message, indicating that the email has been removed</td>
