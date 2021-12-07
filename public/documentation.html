@@ -51,26 +51,38 @@
             <pre>
               <code>
                 {
-                  "title": "Oh my Venus",
-                  "dramaId": "2",
-                  "episode": 16,
-                  "releaseYear": 2015,
-                  "descreption": "Lorem ipsum dolor sit amet, ...",
-                  "genre": [
-                      "comedy",
-                      "romance",
-                      "drama"
-                      ],
-                  "director": [
-                      "Kim Hyung-suk"
-                      ],
-                  "writer": [
-                      "Kim Eun-Ji"
-                      ],
-                  "imgURL": "https://"
+                  "Director": {
+                    "Name": "Lee Eung-Bok",
+                    "Bio": "Lee Eung-Bok is a South Korean director.",
+                    "Birth": ""
+                  },
+                  "_id": "61a8dec1cfc407887bef48d0",
+                  "Title": "Mr Sunshine",
+                  "Description": "Mr. Sunshine centres around Eugene Choi (Lee Byung-hun),
+                    who was born into slavery in Joseon... - Wikipedia",
+                  "Episodes": "24",
+                  "ReleasYear": "2018",
+                  "Writer": [
+                    "Kim Eun-Sook"
+                  ],
+                  "ImagePath": "https://dl.dropboxusercontent.com/s/eg39fi3emom8hly/poster_placeholder.png?dl=0",
+                  "Featured": false,
+                  "Genre": [{
+                      "_id": "61aa162c5d765ef9255dacd0",
+                      "Name": "Historical"
+                    },
+                    {
+                      "_id": "61aa16415d765ef9255dacd1",
+                      "Name": "Romance"
+                    },
+                    {
+                      "_id": "61aa16e75d765ef9255dacd8",
+                      "Name": "Meldodrama"
+                    }
+                  ]
                 }
               </code>
-          </pre>
+            </pre>
           </td>
         </tr>
         <tr>
@@ -78,14 +90,30 @@
           <td>/genres/[genre]</td>
           <td class="center">GET</td>
           <td class="center">None</td>
-          <td>A text message, indicating a drama genre list</td>
+          <td>A JASON object holding data about all dramas of a certain genre.</td>
         </tr>
         <tr>
           <td>Get data about a director by name</td>
           <td>/directors/[name]</td>
           <td class="center">GET</td>
           <td class="center">None</td>
-          <td>A text message, indicating a certain drama director</td>
+          <td>
+            A JASON object holding data about a single director, containing name,
+            bio and birth
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "Director": {
+                    "Name": "Lee Eung-Bok",
+                    "Bio": "Lee Eung-Bok is a South Korean director.",
+                    "Birth": ""
+                  }
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
       </table>
 
@@ -102,36 +130,134 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td class="center">POST</td>
-          <td class="center">None</td>
-          <td>A text message, indicating the user was registered</td>
+          <td>
+            A JSON object holding data about the user to add.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "Username": "testUser001",
+                  "Password": "123",
+                  "Email": "test@mail.com",
+                  "Birthday": "1995-05-05"
+                }
+              </code>
+            </pre>
+          </td>
+          <td>
+            A JSON object holding data bout the user that was added, including an ID.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "Username": "testUser001",
+                  "Password": "123",
+                  "Email": "test@mail.com",
+                  "Birthday": "1995-05-05T00:00:00.000Z",
+                  "FavDramas": [],
+                  "_id": "61af31cf9acde22546e79092",
+                  "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow users to update their user info (username)</td>
           <td>/users/[id]</td>
           <td class="center">PUT</td>
-          <td class="center">None</td>
-          <td>A text message, indicating the username was updated</td>
+          <td>
+            A JSON object holding data about the user to update.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "Username" : "testUser001",
+                  "Password" : "123",
+                  "Email" : "newtest@mail.com",
+                  "Birthday" : "1995-05-05"
+                }
+              </code>
+            </pre>
+          </td>
+          <td>
+            A JSON object holding data bout the user that was updated.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "_id": "61af31cf9acde22546e79092",
+                  "Username": "testUser001",
+                  "Password": "123",
+                  "Email": "newtest@mail.com",
+                  "Birthday": "1995-05-05T00:00:00.000Z",
+                  "FavDramas": [],
+                  "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow users to add a drama to their list of fav</td>
           <td>/users/[id]/favs/[dramaId]</td>
-          <td class="center">PUT</td>
+          <td class="center">POST</td>
           <td class="center">None</td>
-          <td>A text message, indicating that the drama has been added</td>
+          <td>
+            A JSON object holding data bout the favourite Drama that was added.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "_id": "61af31cf9acde22546e79092",
+                  "Username": "testUser001",
+                  "Password": "123",
+                  "Email": "newtest@mail.com",
+                  "Birthday": "1995-05-05T00:00:00.000Z",
+                  "FavDramas": [
+                      "61a8dec1cfc407887bef48d0"
+                  ],
+                  "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow users to remove a drama from their list of favourites</td>
           <td>/users/[id]/favs/[dramaId]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
-          <td>A text message, indicating that the drama has been removed</td>
+          <td>
+            A JSON object holding data bout the favourite Drama that was deleted.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "_id": "61af31cf9acde22546e79092",
+                  "Username": "testUser001",
+                  "Password": "123",
+                  "Email": "newtest@mail.com",
+                  "Birthday": "1995-05-05T00:00:00.000Z",
+                  "FavDramas": [],
+                  "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
           <td>/users/[id]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
-          <td>A text message, indicating that the email has been removed</td>
+          <td>A text message, indicating that the account has been deleted.</td>
         </tr>
       </table>
     </main>
