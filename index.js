@@ -5,6 +5,15 @@ const express = require('express'),
 
 const app = express();
 
+
+const mongoose = require('mongoose'),
+    Models = require('./models.js');
+
+const KDramas= Models.KDrama,
+    Users = Models.User,
+    Genres = Models.Genre;
+
+
 // Created JSON object to carry kdrama data
 let topKoreanDramas = [
     {
