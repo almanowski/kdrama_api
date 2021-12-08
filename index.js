@@ -62,10 +62,9 @@ app.get('/korean-dramas/:title', (req, res) => {
 
 // Displays drama from a certain genre
 app.get('/genres/:name', (req, res) => {
-  KDramas.find({Name: req.params.name})
-  .populate('Genre')
-  .then((kDramas) => {
-      res.status(201).json(kDramas);
+  Genres.findOne({Name: req.params.name})
+  .then((genres) => {
+      res.status(201).json(genres);
   })
   .catch((err) => {
       console.error(err);
