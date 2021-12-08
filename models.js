@@ -25,7 +25,8 @@ let userSchema = mongoose.Schema({
 });
 
 let genreSchema = mongoose.Schema({
-    Name: {type: String}
+    Name: {type: String},
+    Description: {type: String}
 })
 
 let KDrama = mongoose.model('KDrama', dramaSchema);
