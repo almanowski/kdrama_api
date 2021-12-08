@@ -90,7 +90,21 @@
           <td>/genres/[genre]</td>
           <td class="center">GET</td>
           <td class="center">None</td>
-          <td>A JASON object holding data about all dramas of a certain genre.</td>
+          <td>
+            A JASON object holding data about a single genre, containing name
+            and description.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                    "_id": "61aa16415d765ef9255dacd1",
+                    "Name": "Romance",
+                    "Description": "Most often, however, a romance is... - Wikipedia"
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Get data about a director by name</td>
