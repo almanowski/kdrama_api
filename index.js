@@ -29,13 +29,20 @@ app.use(express.static('public'));
 mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
     {useNewUrlParser: true, useUnifiedTopology: true});
 
+// Authentication
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
+
 // CONTENT
 app.get('/', (req, res) => {
     res.send('Welcome to my korean drama app!');
 });
 
 // Displays dramas
-app.get('/korean-dramas', (req, res) => {
+app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     KDramas.find()
     .populate('Genre')
     .then((kDramas) => {
@@ -48,7 +55,8 @@ app.get('/korean-dramas', (req, res) => {
 });
 
 // Displays one drama
-app.get('/korean-dramas/:title', (req, res) => {
+app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     KDramas.findOne({Title: req.params.title})
     .populate('Genre')
     .then((kDramas) => {
@@ -61,7 +69,8 @@ app.get('/korean-dramas/:title', (req, res) => {
 });
 
 // Displays drama from a certain genre
-app.get('/genres/:name', (req, res) => {
+app.get('/genres/:name', passport.authenticate('jwt', {session: false}),
+(req, res) => {
   Genres.findOne({Name: req.params.name})
   .then((genres) => {
       res.status(201).json(genres);
@@ -73,7 +82,8 @@ app.get('/genres/:name', (req, res) => {
 });
 
 // Displays one director
-app.get('/directors/:name', (req, res) => {
+app.get('/directors/:name', passport.authenticate('jwt', {session: false}),
+(req, res) => {
   KDramas.findOne({'Director.Name': req.params.name},
   {'Director.Name': 1, 'Director.Bio':1, 'Director.Birth':1, _id:0})
   .then((kDramas) => {
@@ -115,7 +125,8 @@ app.post('/users', (req, res) => {
 });
 
 // Update the username               WORKING
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     Users.findByIdAndUpdate({_id: req.params.id},
     {$set:
        {
@@ -137,7 +148,8 @@ app.put('/users/:id', (req, res) => {
 });
 
 //Update the favlist
-app.post('/users/:id/favs/:dramaId', (req, res) => {
+app.post('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     Users.findByIdAndUpdate({_id: req.params.id},
     {$push:
         {FavDramas: req.params.dramaId}
@@ -154,7 +166,8 @@ app.post('/users/:id/favs/:dramaId', (req, res) => {
 });
 
 //Delte drama from the favlist
-app.delete('/users/:id/favs/:dramaId', (req, res) => {
+app.delete('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     Users.findByIdAndUpdate({_id: req.params.id},
     {$pull:
         {FavDramas: req.params.dramaId}
@@ -171,7 +184,8 @@ app.delete('/users/:id/favs/:dramaId', (req, res) => {
 });;
 
 // Delete user
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', passport.authenticate('jwt', {session: false}),
+(req, res) => {
     Users.findByIdAndRemove({_id: req.params.id})
       .then((user) => {
           if(!user) {
