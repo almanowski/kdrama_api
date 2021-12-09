@@ -1,19 +1,19 @@
 const express = require('express'),
     morgan = require('morgan'), // Used for logging
-    bodyParser = require('body-parser'); // Reads the “body” of HTTP requests
-
-const app = express();
-
-
-const mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),  // Reads the “body” of HTTP requests
+    mongoose = require('mongoose'),
     Models = require('./models.js');
 
 const KDramas= Models.KDrama,
     Users = Models.User,
     Genres = Models.Genre;
 
+const app = express();
 
-// GENERAL
+// Conect to DB
+mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
+    {useNewUrlParser: true, useUnifiedTopology: true});
+
 // Allows you to read the “body” of HTTP requests within your request handlers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,14 +24,11 @@ app.use(morgan('common'));
 // Serves all static files in public folder
 app.use(express.static('public'));
 
-// Conect to DB
-mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
-    {useNewUrlParser: true, useUnifiedTopology: true});
-
 // Authentication
-let auth = require('./auth')(app);
+let auth = require('./auth.js')(app);
+
 const passport = require('passport');
-require('./passport');
+require('./passport.js');
 app.use(passport.initialize());
 
 
