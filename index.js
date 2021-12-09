@@ -1,7 +1,6 @@
 const express = require('express'),
     morgan = require('morgan'), // Used for logging
-    bodyParser = require('body-parser'), // Reads the “body” of HTTP requests
-    uuid = require('uuid'); // Generate a unique ID
+    bodyParser = require('body-parser'); // Reads the “body” of HTTP requests
 
 const app = express();
 
@@ -33,6 +32,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+app.use(passport.initialize());
 
 
 // CONTENT
