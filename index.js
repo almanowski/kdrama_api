@@ -158,27 +158,41 @@ app.post('/users',
             });
 });
 
-// Update the username               WORKING
+// Update the username
 app.put('/users/:id', passport.authenticate('jwt', {session: false}),
-(req, res) => {
-    Users.findByIdAndUpdate({_id: req.params.id},
-    {$set:
-       {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-        }
-      },
-      {new: true}, //This line makes sure that the updated document is returned
-      (err, updatedUser) => {
-          if(err) {
-              console.error(err);
-              res.status(500).send('Error: ' + err);
-          } else {
-              res.json(updatedUser);
+    [
+        check('Username', 'Username is required').isLength({min: 5}),
+        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+      // Check the validation object for errors
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+          return res.status(422).json({errors: errors.array() });
+      }
+
+      let hashedPassword = Users.hashPassword(req.body.Password);
+
+      Users.findByIdAndUpdate({_id: req.params.id},
+      {$set:
+         {
+          Username: req.body.Username,
+          Password: hashedPassword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
           }
-      });
+        },
+        {new: true}, //This line makes sure that the updated document is returned
+        (err, updatedUser) => {
+            if(err) {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 });
 
 //Update the favlist
