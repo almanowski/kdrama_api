@@ -14,7 +14,10 @@ const KDramas= Models.KDrama,
 const app = express();
 
 // Conect to DB
-mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
+//mongoose.connect('mongodb://127.0.0.1:27017/kDramaDB',
+    //{useNewUrlParser: true, useUnifiedTopology: true});
+
+mongoose.connect(process.env.CONNECTION_URI,
     {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Allows you to read the “body” of HTTP requests within your request handlers
