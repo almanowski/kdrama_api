@@ -1,6 +1,11 @@
-# K-Drama App
+# K-Drama API
+![Badge](https://img.shields.io/badge/demo-online-green) ![GitHub last commit](https://img.shields.io/github/last-commit/almanowski/kdrama_api)
 
-Creating this app is part of my [CF Full-Stack Web Development Programm](https://careerfoundry.com/en/courses/become-a-web-developer/).
+Creating this API is part of my [CF Full-Stack Web Development Programm](https://careerfoundry.com/en/courses/become-a-web-developer/).
+
+Live Demo [here](https://mykdrama-api.herokuapp.com/)
+
+Documentation [here](https://mykdrama-api.herokuapp.com/documentation.html)
 
 <p>&nbsp;</p>
 
@@ -23,5 +28,6 @@ To build the server-side component of a "Korean drama" web application. The web 
 <p>&nbsp;</p>
 
 ## 💻 Technologies Used
-* HTML, CSS, JS
 * Node.js 16.13.0
+* Express ^4.17.1
+* MongoDB 5.0.4
