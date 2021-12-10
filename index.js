@@ -77,7 +77,7 @@ app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 // Displays one drama
 app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    KDramas.findOne({Title: req.params.title}, {'Genre.Description':0, _id:0})
+    KDramas.findOne({Title: req.params.title})
     .populate('Genre')
     .then((kDramas) => {
         res.status(201).json(kDramas);
