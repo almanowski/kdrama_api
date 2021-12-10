@@ -112,6 +112,7 @@ app.get('/directors/:name', passport.authenticate('jwt', {session: false}),
 //USER
 // Adds data for a new user !!!!! Doesn't show Birthday!!!!!!!!!!!!
 app.post('/users', (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({Username: req.body.Username})
         .then((user) => {
           if (user) {
@@ -120,7 +121,7 @@ app.post('/users', (req, res) => {
               Users
                   .create({
                       Username: req.body.Username,
-                      Password: req.body.Password,
+                      Password: hashedPassword,
                       Email: req.body.Email,
                       Birthday: req.body.Birthday
                   })
