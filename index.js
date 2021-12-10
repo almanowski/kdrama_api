@@ -30,20 +30,22 @@ app.use(morgan('common'));
 // Serves all static files in public folder
 app.use(express.static('public'));
 
-// CORS
-let allowedOrigin = ['http://localhost:8080', 'http://tstsite.com'];
-
-app.use(cors({
-  origin: (origin, callback) => {
-      if(!origin) return callback(null, true);
-      if(allowedOrigins.indexOf(origin) === -1) {
-          //If a specific origin isn't found on the list of allowed origins
-          let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
-          return callback(new Error(message), false);
-      }
-      return callback(null, true);
-  }
-}));
+// Allows all domains to make a request to the API
+app.use(cors());
+// Alloes certain domain to make a request to the API
+// let allowedOrigin = ['http://localhost:8080', 'http://tstsite.com'];
+//
+// app.use(cors({
+//   origin: (origin, callback) => {
+//       if(!origin) return callback(null, true);
+//       if(allowedOrigins.indexOf(origin) === -1) {
+//           //If a specific origin isn't found on the list of allowed origins
+//           let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+//           return callback(new Error(message), false);
+//       }
+//       return callback(null, true);
+//   }
+// }));
 
 // Authentication
 let auth = require('./auth.js')(app);
