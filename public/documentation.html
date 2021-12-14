@@ -160,19 +160,46 @@
             </pre>
           </td>
           <td>
-            A JSON object holding data bout the user that was added, including an ID.
+            A JSON object holding data about the user that was added, including an ID.
             <br>
             Example:
             <pre>
               <code>
                 {
                   "Username": "testUser001",
-                  "Password": "123",
+                  "Password": "$2b$10$SSen2Yyu0NQkMsYGFc1z2Oka1...",
                   "Email": "test@mail.com",
                   "Birthday": "1995-05-05T00:00:00.000Z",
                   "FavDramas": [],
                   "_id": "61af31cf9acde22546e79092",
                   "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to login</td>
+          <td>/login</td>
+          <td class="center">DELETE</td>
+          <td class="center">None</td>
+          <td>
+            A JSON object holding data about the username adn password.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                "user": {
+                    "_id": "61af31cf9acde22546e79092",
+                    "Username": "testUser001",
+                    "Password": "$2b$10$SSen2Yyu0NQkMsYGFc1z2Oka1...",
+                    "Email": "test@mail.com",
+                    "Birthday": "1991-03-05T00:00:00.000Z",
+                    "FavDramas": [],
+                    "__v": 0
+                },
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                 }
               </code>
             </pre>
@@ -190,7 +217,7 @@
               <code>
                 {
                   "Username" : "testUser001",
-                  "Password" : "123",
+                  "Password" : "$2b$10$SSen2Yyu0NQkMsYGFc1z2Oka1...",
                   "Email" : "newtest@mail.com",
                   "Birthday" : "1995-05-05"
                 }
@@ -198,7 +225,7 @@
             </pre>
           </td>
           <td>
-            A JSON object holding data bout the user that was updated.
+            A JSON object holding data about the user that was updated.
             <br>
             Example:
             <pre>
@@ -222,7 +249,7 @@
           <td class="center">POST</td>
           <td class="center">None</td>
           <td>
-            A JSON object holding data bout the favourite Drama that was added.
+            A JSON object holding data about the favourite Drama that was added.
             <br>
             Example:
             <pre>
@@ -248,7 +275,7 @@
           <td class="center">DELETE</td>
           <td class="center">None</td>
           <td>
-            A JSON object holding data bout the favourite Drama that was deleted.
+            A JSON object holding data about the favourite Drama that was deleted.
             <br>
             Example:
             <pre>
