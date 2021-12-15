@@ -44,8 +44,7 @@ app.get('/', (req, res) => {
 });
 
 // Displays dramas
-app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
-(req, res) => {
+app.get('/korean-dramas', (req, res) => {
     KDramas.find()
     .populate('Genre', 'Name')
     .then((kDramas) => {
