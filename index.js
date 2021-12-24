@@ -111,7 +111,6 @@ app.get('/directors/:name', passport.authenticate('jwt', {session: false}),
 
 
 //USER
-// Adds data for a new user !!!!! Doesn't show Birthday!!!!!!!!!!!!
 app.post('/users',
     [
         check('Username', 'Username is required').isLength({min: 5}),
@@ -153,7 +152,7 @@ app.post('/users',
 });
 
 // Update the username
-app.put('/users/:id', passport.authenticate('jwt', {session: false}),
+app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     [
         check('Username', 'Username is required').isLength({min: 5}),
         check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -169,7 +168,7 @@ app.put('/users/:id', passport.authenticate('jwt', {session: false}),
 
       let hashedPassword = Users.hashPassword(req.body.Password);
 
-      Users.findByIdAndUpdate({_id: req.params.id},
+      Users.findOneAndUpdate({username: req.params.Username},
       {$set:
          {
           Username: req.body.Username,
@@ -190,9 +189,9 @@ app.put('/users/:id', passport.authenticate('jwt', {session: false}),
 });
 
 //Update the favlist
-app.post('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+app.post('/users/:username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findByIdAndUpdate({_id: req.params.id},
+    Users.findOneAndUpdate({Username: req.params.Username},
     {$push:
         {FavDramas: req.params.dramaId}
     },
@@ -208,9 +207,9 @@ app.post('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: fals
 });
 
 //Delte drama from the favlist
-app.delete('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+app.delete('/users/:username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findByIdAndUpdate({_id: req.params.id},
+    Users.findOneAndUpdate({username: req.params.Username},
     {$pull:
         {FavDramas: req.params.dramaId}
     },
@@ -226,9 +225,9 @@ app.delete('/users/:id/favs/:dramaId', passport.authenticate('jwt', {session: fa
 });;
 
 // Delete user
-app.delete('/users/:id', passport.authenticate('jwt', {session: false}),
+app.delete('/users/:username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findByIdAndRemove({_id: req.params.id})
+    Users.findOneAndRemove({username: req.params.Username})
       .then((user) => {
           if(!user) {
               res.status(400).send(req.params.id + ' was not found');
