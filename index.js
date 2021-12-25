@@ -165,7 +165,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}),
 });
 
 // Update the username
-app.put('/users/:username', passport.authenticate('jwt', {session: false}),
+app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
     [
         check('Username', 'Username is required').isLength({min: 5}),
         check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -181,7 +181,7 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
 
       let hashedPassword = Users.hashPassword(req.body.Password);
 
-      Users.findOneAndUpdate({username: req.params.Username},
+      Users.findOneAndUpdate({Username: req.params.Username},
       {$set:
          {
           Username: req.body.Username,
