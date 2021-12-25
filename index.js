@@ -202,7 +202,7 @@ app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
 });
 
 //Update the favlist
-app.post('/users/:username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+app.post('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username},
     {$push:
@@ -220,9 +220,9 @@ app.post('/users/:username/favs/:dramaId', passport.authenticate('jwt', {session
 });
 
 //Delte drama from the favlist
-app.delete('/users/:username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+app.delete('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findOneAndUpdate({username: req.params.Username},
+    Users.findOneAndUpdate({Username: req.params.Username},
     {$pull:
         {FavDramas: req.params.dramaId}
     },
@@ -238,12 +238,12 @@ app.delete('/users/:username/favs/:dramaId', passport.authenticate('jwt', {sessi
 });;
 
 // Delete user
-app.delete('/users/:username', passport.authenticate('jwt', {session: false}),
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findOneAndRemove({username: req.params.Username})
+    Users.findOneAndRemove({Username: req.params.Username})
       .then((user) => {
           if(!user) {
-              res.status(400).send(req.params.id + ' was not found');
+              res.status(400).send(req.params.Username + ' was not found');
           } else {
               res.status(200).send('Your account was deleted.');
           }
