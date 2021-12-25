@@ -151,6 +151,19 @@ app.post('/users',
             });
 });
 
+// Get single USer
+app.get('/users/:username', passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    Users.findOne({username: req.params.Username})
+    .then((users) => {
+        res.status(201).json(users);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
 // Update the username
 app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     [
