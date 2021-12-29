@@ -152,9 +152,9 @@ app.post('/users',
 });
 
 // Get single USer
-app.get('/users/:username', passport.authenticate('jwt', {session: false}),
+app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findOne({username: req.params.Username})
+    Users.findOne({Username: req.params.Username})
     .then((users) => {
         res.status(201).json(users);
     })
