@@ -166,18 +166,7 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 
 // Update the username
 app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
-    [
-        check('Username', 'Username is required').isLength({min: 5}),
-        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-        check('Password', 'Password is required').not().isEmpty(),
-        check('Email', 'Email does not appear to be valid').isEmail()
-    ], (req, res) => {
-      // Check the validation object for errors
-      let errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-          return res.status(422).json({errors: errors.array() });
-      }
+(req, res) => {
 
       let hashedPassword = Users.hashPassword(req.body.Password);
 
