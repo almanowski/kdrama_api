@@ -155,8 +155,8 @@ app.post('/users',
 app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOne({Username: req.params.Username})
-    .then((users) => {
-        res.status(201).json(users);
+    .then((user) => {
+        res.status(201).json(user);
     })
     .catch((err) => {
         console.error(err);
