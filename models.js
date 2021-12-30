@@ -4,7 +4,10 @@ const bcrypt = require('bcrypt');
 let dramaSchema = mongoose.Schema({
     Title: {type: String, required: true},
     Description: {type: String, required: true},
-    Genre: [{type: mongoose.Schema.Types.ObjectId, ref: 'Genre'}],
+    Genre: [{
+        Name: String,
+        Description: String
+    }],
     ReleaseYear: {type: String},
     Episodes: {type: String},
     Director: {
