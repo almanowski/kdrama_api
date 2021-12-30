@@ -58,7 +58,6 @@ app.get('/', (req, res) => {
 app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.find()
-    .populate('Genre', 'Name')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
@@ -72,7 +71,6 @@ app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.findOne({Title: req.params.title})
-    .populate('Genre', 'Name')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
@@ -85,9 +83,10 @@ app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 // Displays drama from a certain genre
 app.get('/genres/:name', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-  Genres.findOne({Name: req.params.name})
-  .then((genres) => {
-      res.status(201).json(genres);
+  KDramas.findOne({'Genre.Name': req.params.name},
+  {'Genre.Name': 1, 'Genre.Bio':1, 'Genre.Birth':1, _id:0})
+  .then((kDramas) => {
+      res.status(201).json(kDramas);
   })
   .catch((err) => {
       console.error(err);
