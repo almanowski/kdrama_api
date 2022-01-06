@@ -82,6 +82,19 @@ app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
     });
 });
 
+// Displays dramas
+app.get('/genres', passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    Genres.find()
+    .then((genres) => {
+        res.status(201).json(genres);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
 // Displays drama from a certain genre
 app.get('/genres/:name', passport.authenticate('jwt', {session: false}),
 (req, res) => {
