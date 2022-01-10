@@ -86,6 +86,15 @@
           </td>
         </tr>
         <tr>
+          <td>Get a list of genres</td>
+          <td>/genres</td>
+          <td class="center">GET</td>
+          <td class="center">None</td>
+          <td>
+            A JASON object holding data about all genres
+          </td>
+        </tr>
+        <tr>
           <td>Get data about a genre by name/title (e.g., "Thriller")</td>
           <td>/genres/[genre]</td>
           <td class="center">GET</td>
@@ -139,6 +148,32 @@
           <th>HTTP METHOD</th>
           <th>REQUEST DATA FORMAT</th>
           <th>RESPONSE DATA BODY FORMAT</th>
+        </tr>
+        <tr>
+          <td>Allows user to see user informartion</td>
+          <td>/users/[username]</td>
+          <td class="center">GET</td>
+          <td>
+            None
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including an ID.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "Username": "testUser001",
+                  "Password": "$2b$10$...",
+                  "Email": "test@mail.com",
+                  "Birthday": "1995-05-05T00:00:00.000Z",
+                  "FavDramas": [],
+                  "_id": "61af31cf9acde22546e79092",
+                  "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow new users to register</td>
@@ -207,7 +242,7 @@
         </tr>
         <tr>
           <td>Allow users to update their user info (username)</td>
-          <td>/users/[id]</td>
+          <td>/users/[username]</td>
           <td class="center">PUT</td>
           <td>
             A JSON object holding data about the user to update.
@@ -245,7 +280,7 @@
         </tr>
         <tr>
           <td>Allow users to add a drama to their list of fav</td>
-          <td>/users/[id]/favs/[dramaId]</td>
+          <td>/users/[username]/favs/[dramaId]</td>
           <td class="center">POST</td>
           <td class="center">None</td>
           <td>
@@ -271,7 +306,7 @@
         </tr>
         <tr>
           <td>Allow users to remove a drama from their list of favourites</td>
-          <td>/users/[id]/favs/[dramaId]</td>
+          <td>/users/[username]/favs/[dramaId]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
           <td>
@@ -295,7 +330,7 @@
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
-          <td>/users/[id]</td>
+          <td>/users/[username]</td>
           <td class="center">DELETE</td>
           <td class="center">None</td>
           <td>A text message, indicating that the account has been deleted.</td>
