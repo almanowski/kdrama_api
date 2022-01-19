@@ -28,7 +28,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 // Allows all domains to make a request to the API
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234']
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://mydrama.netlify.app/']
 
 app.use(cors({
     origin: (origin, callback) => {
