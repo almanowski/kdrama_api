@@ -180,7 +180,8 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 // Get favlist
 app.get('/users/:Username/favs', passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    Users.findOne({Username: req.params.Username}).select('FavDramas')
+    Users.findOne({Username: req.params.Username},
+    {'Username': 0, 'Password':0, 'Email':0, _id:0, 'Birthday':0, 'FavDramas':1})
     .then((user) => {
         res.status(201).json(user);
     })
