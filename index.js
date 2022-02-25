@@ -178,7 +178,7 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 });
 
 // Get favlist
-app.get('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
+app.get('/users/:Username/favs', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOne({Username: req.params.Username}).select('FavDramas')
     .then((user) => {
