@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.find()
-    .populate('Genre', 'Name', 'Description')
+    .populate('Genre')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
@@ -72,7 +72,7 @@ app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.findOne({Title: req.params.title})
-    .populate('Genre', 'Name', 'Description')
+    .populate('Genre')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
