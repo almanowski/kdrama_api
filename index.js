@@ -33,9 +33,9 @@ let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https:/
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1){// If a specifig origin isn't found on the list of origins
+        if(allowedOrigins.indexOf(origin) === -1){// If a specific origin isn't found on the list of origins
             let message ='The CORS policy for this application doesn\'t allow access from origin ' + origin;
-            return callback(new Error(message ), false);
+            return callback(new Error(message), false);
         }
         return callback(null, true);
     }   
@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.find()
-    .populate('Genre', 'Name')
+    .populate('Genre', 'Name', 'Description')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
@@ -72,7 +72,7 @@ app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     KDramas.findOne({Title: req.params.title})
-    .populate('Genre', 'Name')
+    .populate('Genre', 'Name', 'Description')
     .then((kDramas) => {
         res.status(201).json(kDramas);
     })
