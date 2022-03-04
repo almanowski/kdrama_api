@@ -168,7 +168,7 @@ app.post('/users',
 app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOne({Username: req.params.Username})
-    .populate('KDrama')
+    .populate('Drama')
     .then((user) => {
         res.status(201).json(user);
     })
