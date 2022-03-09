@@ -150,7 +150,7 @@
           <th>RESPONSE DATA BODY FORMAT</th>
         </tr>
         <tr>
-          <td>Allows user to see user informartion</td>
+          <td>Allows user to see user information</td>
           <td>/users/[username]</td>
           <td class="center">GET</td>
           <td>
@@ -216,7 +216,7 @@
         <tr>
           <td>Allow users to login</td>
           <td>/login</td>
-          <td class="center">DELETE</td>
+          <td class="center">POST</td>
           <td class="center">None</td>
           <td>
             A JSON object holding data about the username adn password.
@@ -273,6 +273,30 @@
                   "Birthday": "1995-05-05T00:00:00.000Z",
                   "FavDramas": [],
                   "__v": 0
+                }
+              </code>
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Allows user to see favorite dramas</td>
+          <td>/users/[username]/favs</td>
+          <td class="center">GET</td>
+          <td>
+            None
+          </td>
+          <td>
+            A JSON object holding data about the users favorite dramas.
+            <br>
+            Example:
+            <pre>
+              <code>
+                {
+                  "FavDramas": [
+                      "61a8d8facfc407887bef48cb",
+                      "61a8d594cfc407887bef48c9",
+                      "61a8dd81cfc407887bef48ce"
+                  ]
                 }
               </code>
             </pre>
