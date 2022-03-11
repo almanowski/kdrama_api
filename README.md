@@ -1,7 +1,7 @@
 # K-Drama API
 ![Badge](https://img.shields.io/badge/demo-online-green) ![GitHub last commit](https://img.shields.io/github/last-commit/almanowski/kdrama_api)
 
-Creating this API is part of my [CF Full-Stack Web Development Programm](https://careerfoundry.com/en/courses/become-a-web-developer/).
+Creating this API is part of my [CF Full-Stack Web Development Program](https://careerfoundry.com/en/courses/become-a-web-developer/).
 
 Live Demo [here](https://mykdrama-api.herokuapp.com/)
 
