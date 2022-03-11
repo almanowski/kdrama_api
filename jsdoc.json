@@ -1,0 +1,12 @@
+{
+    "source": {
+        "include": ["models.js", "index.js", "auth.js"],
+        "excludePattern": "(node_modules/|docs|public)"
+    },
+    "opts": {
+        "encoding": "utf8",
+        "destination": "docs/",
+        "recurse": true,
+        "verbose": true
+    }
+}
