@@ -2,7 +2,11 @@
  * @fileOverview In this file the endpoints for the API are defined. 
  * @see <a href="https://mykdrama.herokuapp.com/documentation.html">Table of all endpoints and data formats</a>
 */
+/**
+ * @module index
+ */
 
+// Integrated Mongoose into the REST API
 const express = require('express'),
     morgan = require('morgan'), // Used for logging
     bodyParser = require('body-parser'),  // Reads the “body” of HTTP requests
@@ -51,28 +55,31 @@ app.use(cors({
 // Import authentication endpoints
 let auth = require('./auth.js')(app);
 
-// Import passport module
+// Passport is used fo authorization 
 const passport = require('passport');
 require('./passport.js');
 
 
 // CONTENT
 /** 
-* @summary GET request to the landing page ('/') endpoint
+* @function
+* @memberof module:index
+* @summary GET Returns the landing page ('/') endpoint
 * @method GET
-* @param {string} URL
-* @returns {string} Welcome message
+* @param {URL} - Endpoint to fetch welcome message
+* @returns {string} - Welcome message
 */
 app.get('/', (req, res) => {
     res.send('Welcome to my korean drama app!');
 });
 
 /** 
- * @summary GET request to the /korean-dramas endpoint
- * @description Get a list of Korean dramas
+ * @function
+ * @memberof module:index
+ * @summary GET Returns list of dramas
  * @method GET 
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object}  A JASON object holding data about all korean dramas
+ * @param {URL} - Endpoint to fetch dramas "/korean-dramas"
+ * @returns {json-object} - Returns a list of all dramas
  */
 app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 (req, res) => {
@@ -88,11 +95,13 @@ app.get('/korean-dramas', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary GET request to the /korean-dramas/[title] endpoint
- * @description Get data about a single drama
+ * @function
+ * @memberof module:index
+ * @summary GET Return all data about a single drama, by title
  * @method GET 
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JASON object holding data about a single drama, containing a title, episodes, release Year, description, genre, director, image URL
+ * @param {URL} - Endpoint to fetch one drama "/korean-dramas"
+ * @param {string} - Title to identify the drama "/:Title"
+ * @returns {json-object} - Returns data about a single drama
  */
 app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 (req, res) => {
@@ -108,11 +117,12 @@ app.get('/korean-dramas/:title', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary GET request to the /genres endpoint
- * @description Get a list of genres
+ * @function
+ * @memberof module:index
+ * @summary GET Return list of genres
  * @method GET 
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JASON object holding data about all genres
+ * @param {URL} - Endpoint to fetch genres "/genres"
+ * @returns {json-object} - Returns a list of all genres
  */
 app.get('/genres', passport.authenticate('jwt', {session: false}),
 (req, res) => {
@@ -127,11 +137,13 @@ app.get('/genres', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary GET request to the /genres/[name] endpoint
- * @description Get data about a genre by name/title (e.g., "Thriller")
+ * @function
+ * @memberof module:index
+ * @summary GET Return a single genre by name
  * @method GET 
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object}  A JASON object holding data about a single genre, containing name and description.
+ * @param {URL} - Endpoint to fetch one genre "/genres"
+ * @param {string} - Name to identify the genre "/:name"
+ * @returns {json-object} - Returns data about a single genre
  */
 app.get('/genres/:name', passport.authenticate('jwt', {session: false}),
 (req, res) => {
@@ -146,11 +158,13 @@ app.get('/genres/:name', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary GET request to the /directors/[name] endpoint
- * @description Get data about a director by name
+ * @function
+ * @memberof module:index
+ * @summary GET Return a single director by name
  * @method GET 
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JASON object holding data about a single director, containing name, bio and birth
+ * @param {URL} - Endpoint to fetch one genre "/directors"
+ * @param {string} - Name to identify the genre "/:name"
+ * @returns {json-object} - Returns data about a single director
  */
 app.get('/directors/:name', passport.authenticate('jwt', {session: false}),
 (req, res) => {
@@ -168,12 +182,14 @@ app.get('/directors/:name', passport.authenticate('jwt', {session: false}),
 
 //USER
 /** 
- * @summary POST request to the /users endpoint
- * @description Allow new users to register
+ * @function
+ * @memberof module:index
+ * @summary POST Allow new user to register
  * @method POST
- * @param {Object} object A JSON object holding data about the user to add.
- * @returns {Object} A JSON object holding data about the user that was added, including an ID.
-*/
+ * @param {URL} - Endpoint to post users "/users"
+ * @returns {string} - Returns success/error message
+ * @returns {json-object} - If successful: Returns an object holding the new user data
+ */
 app.post('/users',
     [
         check('Username', 'Username is required').isLength({min: 5}),
@@ -214,13 +230,15 @@ app.post('/users',
             });
 });
 
-/**  
- * @summary GET request to the /users/[Username] endpoint
- * @description Allows user to see user information
+/** 
+ * @function
+ * @memberof module:index
+ * @summary GET Return a single user by username
  * @method GET
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JSON object holding data about the user that was added, including an ID.
-*/
+ * @param {URL} - Endpoint to post users "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @returns {json-object} - Returns data about a single user
+ */
 app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOne({Username: req.params.Username})
@@ -234,12 +252,15 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary GET request to the /users/[Username]/favs endpoint
- * @description Allows user to see favorite dramas
+ * @function
+ * @memberof module:index
+ * @summary GET Return a favorite drama list from one user
  * @method GET
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JSON object holding data about the users favorite dramas.
-*/
+ * @param {URL} - Endpoint to to fetch the user "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @param {URL} - Endpoint to to fetch the favorite dramas"/favs"
+ * @returns {json-object} - Returns list of favorite dramas
+ */
 app.get('/users/:Username/favs', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOne({Username: req.params.Username},
@@ -254,13 +275,15 @@ app.get('/users/:Username/favs', passport.authenticate('jwt', {session: false}),
 });
 
 /** 
- * @summary PUT request to the /users/[Username] endpoint
- * @description Allow users to update their user info (username)
+ * @function
+ * @memberof module:index
+ * @summary PUT Allow users to update their user info
  * @method PUT
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @param {Object} object A JSON object holding data about the user to update.
- * @returns {Object} A JSON object holding data about the user that was updated.
-*/
+ * @param {URL} - Endpoint to put user "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @returns {string} - Returns success/error message
+ * @returns {json-object} - If successful: Returns an object holding the updated user data
+ */
 app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
     [
         check('Username', 'Username is required').isLength({min: 5}),
@@ -297,14 +320,18 @@ app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
         });
 });
 
-/** 
- * @summary POST request to the /users/[Username]/favs/[dramaId] endpoint
- * @description Allow users to add a drama to their list of fav
- *  Adding a favorite drama to the array containing the favorites of the user that is called in the endpoint
+/**
+ * @function
+ * @memberof module:index
+ * @summary POST Allow users to add a drama as favorite drama
  * @method POST
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JSON object holding data about the favourite Drama that was added.
-*/
+ * @param {URL} - Endpoint to fetch the user "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @param {URL} - Endpoint to fetch the favorite dramas"/favs"
+ * @param {string} - Endpoint to post the drama as favorite"/:dramaId"
+ * @returns {string} - Returns success/error message
+ * @returns {json-object} - If successful: Returns an object holding the updated data
+ */
 app.post('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username},
@@ -323,12 +350,17 @@ app.post('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session
 });
 
 /** 
- * @summary DELETE request to the /users/[Username]/favs/[dramaId] endpoint
- * @description Allow users to remove a drama from their list of favourites
+ * @function
+ * @memberof module:index
+ * @summary DELETE Allow users to remove a drama from their favorites
  * @method DELETE
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {Object} A JSON object holding data about the favourite Drama that was deleted.
-*/
+ * @param {URL} - Endpoint to fetch the user "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @param {URL} - Endpoint to fetch the favorite dramas"/favs"
+ * @param {string} - Endpoint to remove the drama from favorites"/:dramaId"
+ * @returns {string} - Returns success/error message
+ * @returns {json-object} - If successful: Returns an object holding the updated data
+ */
 app.delete('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username},
@@ -347,12 +379,14 @@ app.delete('/users/:Username/favs/:dramaId', passport.authenticate('jwt', {sessi
 });;
 
 /** 
- * @summary DELETE request to the /users/[Username] endpoint
- * @description Allow existing users to deregister
+ * @function
+ * @memberof module:index
+ * @summary DELETE Allow existing user to deregister
  * @method DELETE
- * @param {authenticationCallback} object  headers {"Authorization" : "Bearer <jwt>"}
- * @returns {String} A text message, indicating that the account has been deleted.
-*/
+ * @param {URL} - Endpoint to fetch the user "/users"
+ * @param {string} - Username to identify the user "/:Username"
+ * @returns {string} - Returns success/error message
+ */
 app.delete('/users/:Username', passport.authenticate('jwt', {session: false}),
 (req, res) => {
     Users.findOneAndRemove({Username: req.params.Username})

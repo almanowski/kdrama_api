@@ -1,6 +1,9 @@
 /** 
  * @fileOverview In this file, the schemas for the documents held in the kdrama, genre and user collection in MongoDB get implemented.
 */
+/**
+ * @module models
+ */
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
@@ -37,18 +40,22 @@ let userSchema = mongoose.Schema({
 });
 
 /** 
+ * @function
+ * @memberof module:models
  * @summary The password gets hashed with bcrypt.
- * @param {string} string The user password. 
- * @returns {String} String containing the hashed password.
+ * @param {string} - The user password. 
+ * @returns {string} String containing the hashed password.
 */
 userSchema.statics.hashPassword = (password) => {
     return bcrypt.hashSync(password, 10);
 };
 
 /** 
+ * @function
+ * @memberof module:models
  * @summary Validating the entered password by comparing it to the stored password hash
- * @param {string} string The user password. 
- * @returns {Boolean}
+ * @param {string} - The user password. 
+ * @returns {Boolean} - Returns true or false
 */
 userSchema.methods.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.Password);
